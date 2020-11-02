@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           registry: docker.io
 
-      - name: Push to Docker Hub
+      - name: Build image and push to container registies
         id: docker_build
         uses: docker/build-push-action@v2
         with:
