@@ -9,8 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # DOCKER_NAMESPACE: "openfaas"
-      DOCKER_NAMESPACE: "codecutteruk"
+      DOCKER_NAMESPACE: "openfaas"
       DOCKER_IMAGE_NAME: "nats-connector"
     steps:
       - name: Checkout
