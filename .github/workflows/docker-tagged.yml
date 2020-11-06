@@ -40,7 +40,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
-          tags: ghcr.io/openfaas/nats-connector:${{ steps.get_tag.outputs.TAG }}
+          tags: ghcr.io/codecutteruk/nats-connector:${{ steps.get_tag.outputs.TAG }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
