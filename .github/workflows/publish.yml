@@ -18,6 +18,10 @@ jobs:
         id: get_tag
         run: echo ::set-output name=TAG::${GITHUB_REF#refs/tags/}
 
+      - name: Get repo owner in lowercase
+        id: get_repo_owner
+        run: echo ::set-output name=REPOSITORY_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -38,9 +42,14 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          context: .
+          file: ./Dockerfile
+          outputs: "type=image,push=false"
           push: true
+          platforms: linux/amd64,linux/arm/v7,linux/arm64
+          build-args: |
+            FULL_REPO_NAME=${{github.repository}}
           tags: |
-            ghcr.io/openfaas/nats-connector:${{ github.sha }}
-            ghcr.io/openfaas/nats-connector:${{ steps.get_tag.outputs.TAG }}
-            ghcr.io/openfaas/nats-connector:latest
+            ghcr.io/${{steps.get_repo_owner.outputs.REPOSITORY_OWNER}}/nats-connector:${{ github.sha }}
+            ghcr.io/${{steps.get_repo_owner.outputs.REPOSITORY_OWNER}}/nats-connector:${{ steps.get_tag.outputs.TAG }}
+            ghcr.io/${{steps.get_repo_owner.outputs.REPOSITORY_OWNER}}/nats-connector:latest
