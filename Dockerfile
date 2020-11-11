@@ -1,5 +1,8 @@
 FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.13 as build
 
+ARG FULL_REPO_NAME="openfaas/nats-connector"
+LABEL org.opencontainers.image.source https://github.com/${FULL_REPO_NAME}
+
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 ARG TARGETOS
