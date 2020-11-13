@@ -26,7 +26,7 @@ jobs:
       - name: Get repo owner in lowercase
         id: get_repo_owner
         run: echo ::set-output name=REPOSITORY_OWNER_LOWER::$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
-        #run: echo ::set-output name=REPOSITORY_OWNER_LOWER::${GITHUB_REPOSITORY_OWNER,,}
+        # run: echo ::set-output name=REPOSITORY_OWNER_LOWER::${GITHUB_REPOSITORY_OWNER,,}
 
       - name: get_repo_owner_print
         id: get_repo_owner_print
@@ -73,6 +73,6 @@ jobs:
           build-args: |
             FULL_REPO_NAME=${{github.repository}}
           tags: |
-            ghcr.io/${{ steps.get_repo_owner.outputs.REPOSITORY_OWNER }}/nats-connector:${{ github.sha }}
-            ghcr.io/${{ steps.get_repo_owner.outputs.REPOSITORY_OWNER }}/nats-connector:${{ steps.get_tag.outputs.TAG }}
-            ghcr.io/${{ steps.get_repo_owner.outputs.REPOSITORY_OWNER }}/nats-connector:latest
+            ghcr.io/${{ steps.get_repo_owner.outputs.REPOSITORY_OWNER_LOWER }}/nats-connector:${{ github.sha }}
+            ghcr.io/${{ steps.get_repo_owner.outputs.REPOSITORY_OWNER_LOWER }}/nats-connector:${{ steps.get_tag.outputs.TAG }}
+            ghcr.io/${{ steps.get_repo_owner.outputs.REPOSITORY_OWNER_LOWER }}/nats-connector:latest
